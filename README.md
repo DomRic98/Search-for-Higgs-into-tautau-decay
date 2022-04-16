@@ -8,7 +8,7 @@ Other details are available in pdf format in the Abstracts directory.
 
 ### Instructions
 
-Thanks to the CMS collaboration is possible to work on Simulated and Real data for the process <img src="https://latex.codecogs.com/gif.latex?O_t=\text { H\to\tau_{\mu}\tau_{h} } t " /> ([CMS Open Data](http://opendata.web.cern.ch/record/12350)).
+Thanks to the CMS collaboration is possible to work on Simulated and Real data for the process <img src="https://latex.codecogs.com/gif.latex?\text { H\to\tau_{\mu}\tau_{h} } t " /> ([CMS Open Data](http://opendata.web.cern.ch/record/12350)).
 If you are instaled on your machine the ROOT framework is possible runs the C++ code, present in this repository, to perform the first selection on the data samples:
 ```bash
 $ root -l
