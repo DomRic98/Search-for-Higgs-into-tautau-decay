@@ -10,7 +10,9 @@ Welcome to Searches for the Higgs boson in the tau-tau decay channel's documenta
    :maxdepth: 2
    :caption: Contents:
 
-
+   ML_Higgs
+   plot_functions
+   ML_infoplot
 
 Indices and tables
 ==================

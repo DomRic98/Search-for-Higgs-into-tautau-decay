@@ -1,7 +1,10 @@
 """
 This python script implements ML algorithms for the classification signal/background of Higgs decay events.
+
 @ Author: Domenico Riccardi & Viola Floris
+
 @ Creation Date: 09/04/2022
+
 @ Last Update: 16/04/2022
 """
 
@@ -21,7 +24,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, \
 from sklearn.model_selection import train_test_split, GridSearchCV
 
 # Import some useful functions from another python script (plot_function.py)
-from plot_function import plotting_ROC, plotting_loss, plotting_accuracy, \
+from plot_functions import plotting_ROC, plotting_loss, plotting_accuracy, \
     plotting_output_score, plotting_purity_vs_efficiency, plotting_confusion_matrix, \
     plotting_physical_variables, correlations
 
@@ -32,7 +35,9 @@ def read_root(file_name):
     """
     The function implements the read of root files to prepare the datasets for ML.
     In particular, it uses the uproot library to read the root files and Pandas DataFrame to create the dataset.
+
     :param file_name: the name of the root file to process.
+
     :return: None
     """
     df = {}
@@ -72,10 +77,10 @@ def fscore_threshold(purity, recall, thresholds):
     After that, the function finds optimal threshold that produces the best balance between precision and recall,
     by looking for the maximum values of the parameters that produce the the greatest f-score.
 
-    :param purity: Vector of values between 0 and 1. This variable is the ability of the classifier
-    not to label as signal an event that is background.
-    :param recall: Vector of values between 0 and 1. This variable is the ability of the classifier
-    to find all the signal events.
+    :param purity: Vector of values between 0 and 1. \
+    This variable is the ability of the classifier not to label as signal an event that is background.
+    :param recall: Vector of values between 0 and 1. \
+    This variable is the ability of the classifier to find all the signal events.
     :param thresholds: Threshold values from precision-recall curve method.
 
     :return: Threshold value end index of the largest f-score.

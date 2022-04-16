@@ -1,7 +1,10 @@
 """
 This python script implements some useful functions for ML_Higgs.py code
+
 @ Author: Domenico Riccardi & Viola Floris
+
 @ Creation Date: 09/04/2022
+
 @ Last Update: 16/04/2022
 """
 # Import packages/library
@@ -20,9 +23,11 @@ PATH = 'Plot'
 def plotting_loss(type, loss, val_loss):
     """
     The function plots the loss function on training and validation set vs epochs.
+
     :param type: The name of classifier/signal variables.
     :param loss: Loss function during training phase.
     :param val_loss: Loss function on validation set.
+
     :return: The loss function plot comparison.
     """
     plt.figure()
@@ -41,9 +46,11 @@ def plotting_accuracy(type, accuracy, val_accuracy):
     """
     This plot shows the ANN accuracy on training and validation set vs epochs,
     with accuracy defined as the number of correctly matches between the predictions and the true labels.
+
     :param type: The name of classifier/signal variables.
     :param accuracy: Accuracy metric on the training set.
     :param val_accuracy: Accuracy metric on the validation set.
+
     :return: The ANN accuracy plot comparison.
     """
     plt.figure()
@@ -64,6 +71,7 @@ def plotting_ROC(type, fpr_test, tpr_test, fpr_train, tpr_train, thresholds, ix,
     that shows the True Positive Rate vs False Positive Rate compared to random chance.
     The Best Threshold found is also highlighted,
     so this summary visual is used to assess the performance of classification models.
+
     :param type: ANN or RFC ML algorithm depending on the case.
     :param fpr_test: False Positive Rate on test dataset.
     :param tpr_test: True Positive Rate on test dataset.
@@ -73,6 +81,7 @@ def plotting_ROC(type, fpr_test, tpr_test, fpr_train, tpr_train, thresholds, ix,
     :param ix: Best Threshold's index
     :param roc_auc_test: Area under the ROC curve on test set.
     :param roc_auc_train: Area under the ROC curve on training set.
+
     :return: plot of ROC on test and training sets, random chance and Best Threshold.
     """
     plt.figure()
@@ -94,6 +103,7 @@ def plotting_purity_vs_efficiency(type, t_test, t_train, recall_test, recall_tra
     The function plots the product of purity (indicates how accurate the model is)
     and efficiency (indicates how properly selective the model is) metrics against the threshold already calculated.
     It compared both test set results and training set results, moreover Best Threshold found is also highlighted.
+
     :param type:  ANN or RFC Machine Learning algorithm depending on the case.
     :param t_test: Threshold already calculated on test set.
     :param t_train: Threshold already calculated on training set.
@@ -102,6 +112,7 @@ def plotting_purity_vs_efficiency(type, t_test, t_train, recall_test, recall_tra
     :param purity_test: Purity values on test set.
     :param purity_train: Purity values on training set.
     :param ix: Best Threshold's index
+
     :return: Curves of purity times efficiency vs threshold and Best Threshold.
     """
     plt.figure()
@@ -125,12 +136,14 @@ def plotting_output_score(type, y_train, y_prediction_train, y_test, y_predictio
     This summary plot shows output score both with histograms of predictions on training set
     and with trend (points) of predictions on test set.
     The dashed line is the threshold that splits signals and background events.
+
     :param type: ANN or RFC Machine Learning algorithm depending on the case.
     :param y_train: True label events on training set.
     :param y_prediction_train: Prediction label events on training set.
     :param y_test: True label events on test set.
     :param y_prediction_test: Prediction label events on test set.
     :param cut_dnn: Separating threshold.
+
     :return: Histogram and trend of output score on training and test set, with highlighted threshold.
     """
     plt.figure()
@@ -165,9 +178,11 @@ def plotting_confusion_matrix(type, y_test, y_prediction_test, w_test):
     of the model between various classes.
     The table y-axis is the label that the model predicted and the x-axis is the true label.
     So the elements, from the top-left side, represent TN, FP, FN and TP rates on test dataset.
+
     :param type: ANN or RFC Machine Learning algorithm depending on the case.
     :param y_test: True label events on test set.
     :param y_prediction_test: Predicted label events on test set.
+
     :return: The confusion matrix with information from the evaluation metrics.
     """
     plt.figure()
@@ -188,12 +203,14 @@ def plotting_physical_variables(s, index_vars, X_test, y_test, y_prediction_test
     Transverse Momentum of Dilepton System, dPhi of Dilepton System, Number of Jets,
     Output multivariate b-tagging algorithm and so on. In addition, we are using the ML_infoplot.py file where
     there are physical variables information.
+
     :param s: Physical variables name
     :param index_vars: Physical variables index
     :param X_test: Features' matrix
     :param y_test: Target vector for the test
     :param y_prediction_test: ANN's target vector for predictions
     :param y_prediction_test_rf: RF's target vector for predictions
+
     :return: Some physical variables plotted with the ANN's and RFC's predictions.
     """
     plt.style.use(hep.style.CMS)  # or ATLAS/LHCb2
@@ -219,7 +236,9 @@ def plotting_physical_variables(s, index_vars, X_test, y_test, y_prediction_test
 def correlations(data):
     """
     The function plots the correlation between variables.
+
     :param data: dataset of variables that we characterise.
+
     :return: the correlations plot.
     """
     corrmat = data.corr()

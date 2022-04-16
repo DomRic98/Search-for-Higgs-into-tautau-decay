@@ -1,7 +1,10 @@
 """
-This file contains some information for the plotting procedure of some physical variables
+This file contains some information for the plotting procedure of some physical variables.
+
 @ Author: Domenico Riccardi & Viola Floris
+
 @ Creation Date: 09/04/2022
+
 @ Last Update: 16/04/2022
 """
 
