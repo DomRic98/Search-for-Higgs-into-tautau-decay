@@ -1,3 +1,10 @@
+"""
+This python script implements ML algorithms for the classification signal/background of Higgs decay events.
+@ Author: Domenico Riccardi & Viola Floris
+@ Creation Date: 09/04/2022
+@ Last Update: 16/04/2022
+"""
+
 # Import packages/library
 import os
 import sys
@@ -22,6 +29,12 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def read_root(file_name):
+    """
+    The function implements the read of root files to prepare the datasets for ML.
+    In particular, it uses the uproot library to read the root files and Pandas DataFrame to create the dataset.
+    :param file_name: the name of the root file to process.
+    :return: None
+    """
     df = {}
     for file in MLfiles:
         Events = uproot.open(file + "_selected.root" + ":Events")
@@ -36,11 +49,10 @@ def read_root(file_name):
 
 def g_mean_threshold(tpr, fpr, thresholds):
     """
-    This function calculates the geometric mean for each pair
-    of the first two arguments of the function (tpr, fpr).
+    This function calculates the geometric mean for each pair of the first two arguments of the function (tpr, fpr).
     After that, the function finds the threshold with the optimal balance between false
     positive and true positive rates, by looking for the maximum values of the parameters
-    that produce the the greatest g-mean.
+    that produce the greatest g-mean.
 
     :param tpr: True Positive Rate value (TPR is also called sensitivity)
     :param fpr: False Positive Rate value. Its inverse is called specificity.
@@ -56,12 +68,9 @@ def g_mean_threshold(tpr, fpr, thresholds):
 
 def fscore_threshold(purity, recall, thresholds):
     """
-    This function calculates f-score for each pair of
-    the first two arguments of the function (purity, recall).
-    After that, the function finds optimal threshold
-    that produces the best balance between precision and recall,
-    by looking for the maximum values of the parameters that produce
-    the the greatest f-score.
+    This function calculates f-score for each pair of the first two arguments of the function (purity, recall).
+    After that, the function finds optimal threshold that produces the best balance between precision and recall,
+    by looking for the maximum values of the parameters that produce the the greatest f-score.
 
     :param purity: Vector of values between 0 and 1. This variable is the ability of the classifier
     not to label as signal an event that is background.
@@ -157,12 +166,12 @@ if __name__ == "__main__":
     weight = events.filter(['weight'])
     W = np.asarray(weight.values).astype(np.float32)
 
-    # Splitting into training and testing dataset
+    # Split into training and testing dataset
     X_train, X_test, y_train, y_test, W_train, W_test = train_test_split(X, y, W, test_size=0.3, shuffle=True)
     print(f'Number of events for training phase: {len(X_train)}')
     print(f'Number of events for test phase: {len(X_test)}')
 
-    # Performing features scaling with StandardScaler
+    # Perform features scaling with StandardScaler
     SC = StandardScaler()
     X_train = SC.fit_transform(X_train)
     X_test = SC.transform(X_test)
@@ -172,7 +181,7 @@ if __name__ == "__main__":
     for var in ML_dict[CHOICE]['ML_VARS']:
         print(f"\t{var}")
 
-    # Creating Artificial Neural Network (with 3 hidden layers)
+    # Create Artificial Neural Network (with 3 hidden layers)
     input_layer = Input(shape=(NUM_VARS,), name='input')
     hidden = Dense(NUM_VARS * ML_dict[CHOICE]['number_input'], name='hidden1', activation='selu')(input_layer)
     hidden = Dropout(rate=0.1)(hidden)
@@ -185,9 +194,9 @@ if __name__ == "__main__":
     ANN = Model(inputs=input_layer, outputs=output_layer, name='ANN')  # Initialising ANN
     ANN.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'],
                 weighted_metrics=['accuracy'])  # Compiling ANN
-    ANN.summary()  # Printing the model summary
+    ANN.summary()  # Print on screen the model summary
 
-    # Fitting ANN
+    # Fit the model ANN
     HISTORY = ANN.fit(X_train, y_train, sample_weight=W_train, batch_size=20,
                       epochs=ML_dict[CHOICE]["N_EPOCHS"], verbose=1, validation_split=0.3)
 
@@ -209,14 +218,14 @@ if __name__ == "__main__":
     # Optimal Threshold for ROC Curve
     ix, cut_dnn = g_mean_threshold(tpr_test, fpr_test, thresholds_test)
 
-    # Plotting the ANN ROC curve on the test and training datasets
+    # Plot the ANN ROC curve on the test and training datasets
+    # with plotting_ROC function implemented in plot_function.py script
     roc_auc_test = auc(fpr_test, tpr_test)
     roc_auc_train = auc(fpr_train, tpr_train)
-
     plotting_ROC(f'ANN for {CHOICE}', fpr_test, tpr_test, fpr_train, tpr_train,
                  thresholds_test, ix, roc_auc_test, roc_auc_train)
 
-    # Get precision or purity and recall or signal efficiency
+    # Get precision or purity and recall or signal efficiency.
     # Precision is the ability of the classifier not to label as positive an event that is negative.
     # Signal efficiency is the ability to find all the positive samples.
     purity_test, recall_test, t_test = precision_recall_curve(y_true=y_test,
@@ -253,7 +262,7 @@ if __name__ == "__main__":
     plotting_confusion_matrix(f'ANN for {CHOICE}', y_test[:, 0], y_prediction_test[:, 0], W_test[:, 0])
 
     print("************************************* RANDOM FOREST **************************************")
-    # Creating a RF classifier
+    # Uncomment the following line to perform the tuning of hyper-parameters of the Random Forest Classifier
 
     """
     classifier = RandomForestClassifier(random_state=7, verbose=1)
@@ -271,7 +280,7 @@ if __name__ == "__main__":
     print(f"Best parameters: {tuner_RF.best_params_}")
     print(f"Best metrics score {tuner_RF.best_score_}")
     """
-
+    # Create a RF classifier
     RFC = RandomForestClassifier(n_estimators=500, criterion='gini', verbose=1, max_depth=5,
                                  max_features=None, bootstrap=True)
 
@@ -339,6 +348,7 @@ if __name__ == "__main__":
 
     X_test = SC.inverse_transform(X_test)
 
+    # Plotting of ML variables with models predictions
     for s in ML_dict[CHOICE]['ML_VARS']:
         index_vars = ML_dict[CHOICE]['ML_VARS'].index(s)
         plotting_physical_variables(s, index_vars, X_test, y_test[:, 0], y_prediction_test, y_prediction_test_rf)
