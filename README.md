@@ -20,3 +20,14 @@ or you can run the selection procedure directly execute the executable file
 $./analysis
 ```
 As a prerogative, it is necessary to download the Open Data from [CMS Open Data link](http://opendata.web.cern.ch/record/12350) or their reduced version from [link](https://root.cern/files/HiggsTauTauReduced/).
+With this procedure, you will produce the `_selected.root` files and executing the command
+```bash
+$ root -l
+$ .L plotting.cpp
+$ main()
+```
+or
+```bash
+$./plotting
+```
+you will produce the distribution plots of a lot of variables.
