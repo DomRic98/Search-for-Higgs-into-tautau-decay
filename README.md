@@ -1,3 +1,10 @@
+![GitHub](https://github.com/DomRic98/First-assignment/actions/workflows/python-app.yml/badge.svg)
+![GitHub](https://img.shields.io/github/license/DomRic98/First-assignment?logo=github)
+![GitHub](https://img.shields.io/github/languages/count/DomRic98/First-assignment?logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/DomRic98/First-assignment?logo=GitHub)
+![Lines of code](https://img.shields.io/tokei/lines/github/DomRic98/First-assignment?logo=github)
+![GitHub top language](https://img.shields.io/github/languages/top/DomRic98/First-assignment?logo=github)
+
 # Searches for the Higgs boson in the tau-tau decay channel
 <div align="center">
     <img src="https://cds.cern.ch/record/2725256/files/mt2.png?subformat=icon-1440" alt="Image" width="600" height="300" />
