@@ -1,7 +1,7 @@
 # Searches for the Higgs boson in the tau-tau decay channel
 <div align="center">
     <img src="https://cds.cern.ch/record/2725256/files/mt2.png?subformat=icon-1440" alt="Image" width="600" height="300" />
-    <p >Event display of a proton-proton collision recorded at CMS with a candidate Higgs boson decaying into two tau leptons.</p>
+    <p >Event display of a p-p collision recorded at CMS with a candidate Higgs boson decaying into two tau leptons.</p>
 </div>
 
 ### Description
