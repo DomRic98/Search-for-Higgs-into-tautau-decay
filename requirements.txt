@@ -6,3 +6,5 @@ keras
 sklearn
 tensorflow
 matplotlib
+seaborn
+mplhep
