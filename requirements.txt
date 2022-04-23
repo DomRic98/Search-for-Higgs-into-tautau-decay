@@ -2,3 +2,5 @@ requests
 uproot
 pandas
 numpy
+keras
+sklearn
