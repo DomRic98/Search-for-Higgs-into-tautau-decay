@@ -5,3 +5,4 @@ numpy
 keras
 sklearn
 tensorflow
+matplotlib
