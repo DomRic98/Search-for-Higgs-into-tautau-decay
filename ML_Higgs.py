@@ -96,9 +96,9 @@ def fscore_threshold(purity, recall, thresholds):
     by looking for the maximum values of the parameters that produce
     the the greatest simplify f-score.
 
-    :param purity: Vector of values between 0 and 1. This variable is the ability of the classifier
+    :param purity: Vector of values between 0 and 1. This variable is the ability of the classifier \
     not to label as signal an event that is background.
-    :param recall: Vector of values between 0 and 1. This variable is the ability of the classifier
+    :param recall: Vector of values between 0 and 1. This variable is the ability of the classifier \
     to find all the signal events.
     :param thresholds: Threshold values from precision-recall curve method.
 

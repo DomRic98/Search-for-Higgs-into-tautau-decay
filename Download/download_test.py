@@ -2,7 +2,6 @@ import os
 import unittest
 from download_sequential import download
 
-
 class TestDownload(unittest.TestCase):
     def setUp(self):
         self.url = "https://root.cern/files/HiggsTauTauReduced/"
