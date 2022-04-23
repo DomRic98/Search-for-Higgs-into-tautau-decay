@@ -1,0 +1,4 @@
+requests
+uproot
+pandas
+numpy
