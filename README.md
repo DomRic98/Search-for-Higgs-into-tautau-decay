@@ -14,27 +14,31 @@
 ### Description
 
 Welcome to this repository! 
-Here, we find all the material produced for the final project (CMEPDA course at the University of Pisa). Running the python and C++ scripts you will find in the folders, you can explore a little part, of a more complex analysis, on the search of Higgs boson decay into two tau leptons.
-Other details are available in pdf format in the Abstracts directory. 
+
+Here, you find all the material produced for the final project (Computing Methods for Experimental Physics and Data Analysis course at the University of Pisa). Running the Python and C++ scripts you will find in the folders, you can explore a little part, of a more complex analysis, on the search of Higgs boson decay into two tau leptons.
+Other details are available in pdf format in the Materials directory. 
 
 ### Code Documentation
-Click on the [link](https://domric98.github.io/Searches-for-the-Higgs-boson-in-the-tau-tau-decay-channel/) for visiting the documentation website.
 
-### Instructions
+Click on the [link](https://domric98.github.io/Searches-for-the-Higgs-boson-in-the-tau-tau-decay-channel/) for visiting the documentation website (produced via Sphinx generator).
+
+### <img src="https://img.icons8.com/color/32/000000/c-plus-plus-logo.png"/> Instructions
 
 Thanks to the CMS collaboration is possible to work on Simulated and Real data for the Higgs decay process ([CMS Open Data](http://opendata.web.cern.ch/record/12350)).
-If you are instaled on your machine the ROOT framework is possible runs the C++ code, present in this repository, to perform the first selection on the data samples:
+If you have the ROOT framework in your machine, you can run the C++ code, located in the ROOT_workspace foder, to perform the first selection on the data samples:
 ```bash
+$ cd ROOT_framework
 $ root -l
 $ .L analysis.cpp
 $ main()
 ```
-or you can run the selection procedure directly execute the executable file
+or you can run the selection procedure directly execute the executable file with
 ```bash
+$ cd ROOT_framework
 $ ./analysis
 ```
-As a prerogative, it is necessary to download the Open Data from [CMS Open Data link](http://opendata.web.cern.ch/record/12350) or their reduced version from [link](https://root.cern/files/HiggsTauTauReduced/).
-With this procedure, you will produce the `_selected.root` files and executing the command
+As a precondition, it is necessary to download the Open Data from [CMS Open Data link](http://opendata.web.cern.ch/record/12350) or their reduced version from [link](https://root.cern/files/HiggsTauTauReduced/). In the Download directory, you can find some Python scripts to download automatically same reduced files via a sequential procedure and parallel ones.
+After these steps, you will produce the `_selected.root` files and executing the command
 ```bash
 $ root -l
 $ .L plotting.cpp
@@ -45,3 +49,5 @@ or
 $ ./plotting
 ```
 you will produce the distribution plots of a lot of variables.
+
+### <img src="https://img.icons8.com/color/32/000000/python--v2.png"/> Instructions
