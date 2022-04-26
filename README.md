@@ -15,7 +15,7 @@
 
 Welcome to this repository! 
 
-Here, you find all the material produced for the final project (Computing Methods for Experimental Physics and Data Analysis course at the University of Pisa). Running the Python and C++ scripts that you can find in the folders, you can explore a little part of a more complex analysis on the search of Higgs boson decay into two tau leptons. 
+Here, you find all the material produced for the final project for Computing Methods for Experimental Physics and Data Analysis exam at the University of Pisa. Running the Python and C++ scripts that you can find in the folders, you can explore a little part of a more complex analysis on the search of Higgs boson decay into two tau leptons.
 
 Thanks to the CMS collaboration is possible to work on Simulated and Real data for the Higgs decay process ([CMS Open Data](http://opendata.web.cern.ch/record/12350)). In order to find Higgs bosons candidates, a selection procedure of events has implemented in the `analysis.cpp` code. Run it to produce the dataset for the Machine Learning algorithms, an Artificial Neural Network and a Random Forest, that execute a signal/background classification. 
 Other details are available in pdf format in the Materials directory. 
