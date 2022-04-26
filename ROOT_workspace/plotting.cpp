@@ -1,16 +1,33 @@
-#include <experimental/filesystem>
+//**************************************************************
+// H2tautau analysis. Plotting code: MC sim. and Real Data
+// Author: Domenico Riccardi
+// Creation Date: 10/04/2022
+// Last Update: 24/04/2022
+//***************************************************************
+
+// Include libraries
 #include <iostream>
 #include <map>
 #include <vector>
+#include <utility>
+#define _LIBCPP_NO_EXPERIMENTAL_DEPRECATION_WARNING_FILESYSTEM
+#include <experimental/filesystem>
+
 #include "ROOT/RDataFrame.hxx"
 #include "TCanvas.h"
 #include "TLegend.h"
 #include "THStack.h"
 #include "TLatex.h"
 #include "TStyle.h"
+#include "TColor.h"
 
+// namespace-alias-definition: makes name "RFilter" a synonym for another namespace
 using RFilter = ROOT::RDF::RInterface<ROOT::Detail::RDF::RJittedFilter>;
 
+/*
+ * Plotting function.
+ * This function template produces the plot of the variable's distribution passed as argument.
+ */
 template <typename T>
 void plotting(T samples, std::string variable, const char *title, std::string xlabel_, std::string unit, int bins, float lim_left, float lim_right) {
     std::cout << "\tPlotting: " << variable << std::endl;
@@ -18,6 +35,7 @@ void plotting(T samples, std::string variable, const char *title, std::string xl
     TCanvas *c = new TCanvas("c","c", 1000, 700);
     gStyle->SetOptStat(0);
     gStyle->SetTitleFontSize(0.05);
+    // Define six 1D histograms for each channel
     auto h1 = samples.at("GluGluToHToTauTau_selected").Histo1D({"", "", bins, lim_left, lim_right}, variable, "weight");
     auto h2 = samples.at("VBF_HToTauTau_selected").Histo1D({"", "", bins, lim_left, lim_right}, variable, "weight");
     auto h3 = samples.at("DYJetsToLL_selected").Histo1D({"", "", bins, lim_left, lim_right}, variable, "weight");
@@ -26,24 +44,25 @@ void plotting(T samples, std::string variable, const char *title, std::string xl
     auto h6 = samples.at("Run2012*_TauPlusX_selected").Histo1D({"", "", bins, lim_left, lim_right}, variable);
     
     std::vector<decltype(h1)> hist = {h1, h2, h3, h4, h5};
-    std::vector<decltype(kRed)> color = {kRed, kCyan, kOrange, kBlue, kMagenta};
-    
+    std::vector<decltype(kRed+1)> color = {kRed+1, kMagenta-9, kGreen-3, kAzure+7, kOrange-3};
+    // Assign the colors of each histogram
     for (int i=0; i<hist.size(); i++) {
         hist[i]->SetLineColor(color[i]);
         hist[i]->SetFillColor(color[i]);
     }
-    
+    // Create a stacked histrogram with MC simulation samples
     THStack *hs = new THStack("hs", "");
     for (auto &h : hist) {
         hs->Add(h.GetPtr());
     }
     hs->Draw("HISTO");
+    // Draw the Data with black points and error bars
     h6->SetMarkerStyle(kFullCircle);
     h6->SetMarkerColor(kBlack);
     h6->SetLineColor(kBlack);
     h6->DrawClone("ESAME");
     
-    
+    // Set the x-y axis labels and calculate the binning
     auto binning = (lim_right - lim_left)/bins;
     std::stringstream ss;
     ss.precision(2);
@@ -54,6 +73,7 @@ void plotting(T samples, std::string variable, const char *title, std::string xl
     hs->GetYaxis()->SetTitle(y_label.c_str());
     hs->SetTitle(title);
     
+    // Draw a Tlegend for Real Data and MC samples
     TLegend *legend = new TLegend(0.65, 0.65, 0.98, 0.88);
     legend->AddEntry(h1.GetPtr(),"gg#rightarrow H #rightarrow#tau_{#mu}#tau_{h}","f");
     legend->AddEntry(h2.GetPtr(),"qq#rightarrow H #rightarrow#tau_{#mu}#tau_{h}","f");
@@ -66,10 +86,10 @@ void plotting(T samples, std::string variable, const char *title, std::string xl
     legend->Draw();
     
     float xposition_lt = hs->GetXaxis()->GetXmax() *0.03 + hs->GetXaxis()->GetXmin();
-    TLatex *lt = new TLatex(xposition_lt, hs->GetMaximum()*0.95,"#scale[0.8]{#splitline{CMS #bf{#it{Open Data}}}{#bf{11.5 fb^{-1} (8TeV)}}}");
+    TLatex *lt = new TLatex(xposition_lt, hs->GetMaximum()*0.95,"#scale[0.8]{#splitline{CMS #bf{#it{Open Data}}}{#bf{11.5 fb^{-1} (8 TeV)}}}");
     lt->Draw("Same");
     
-    
+    // Save the plot in the correct directory
     std::string name = "./Distribution_plots/" + variable + ".pdf";
     c->SaveAs(name.c_str());
     c->Update();
@@ -77,7 +97,7 @@ void plotting(T samples, std::string variable, const char *title, std::string xl
 
 int main()
 {
-   
+    // Create a new folder to contain the distribution plots produced
     std::string dirName = "Distribution_plots";
     std::stringstream bufH;
     bufH << dirName;
@@ -86,6 +106,7 @@ int main()
         std::experimental::filesystem::create_directories(bufH.str());
     }
     
+    // Define a std::map that contains the pair sample-RDataFrame and a std::vector of ROOT files' names
     std::map<std::string, RFilter> samples;
     std::vector<std::string> ROOT_files = {
         "GluGluToHToTauTau_selected",
@@ -96,6 +117,7 @@ int main()
         "Run2012*_TauPlusX_selected"
     };
     
+    // For loop to process the events in ROOT files and to apply final cuts to reduce the background (mostly W+jets)
     for (const std::string &channel: ROOT_files) {
         std::cout << "\tProcessing: " << channel << std::endl;
         ROOT::RDataFrame d("Events", channel + ".root");
@@ -105,6 +127,7 @@ int main()
         std::cout << "\tNumber of events: " << *samples.at(channel).Count() << std::endl;
     }
     
+    // Plot distribution of physical variables by using the plotting function (defined above)
     std::cout << "*************************** Plotting distribution ********************************" << std::endl;
     plotting(samples, "m_vis", "Visible mass m_{#mu}+m_{#tau}", "m_{vis}", "[GeV]", 30, 20, 140);
     plotting(samples, "pt_vis", "Visible transverse momentum", "p_{T,vis}", "[GeV]", 30, 0, 60);
