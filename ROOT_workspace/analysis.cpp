@@ -21,7 +21,7 @@ using RFilter = ROOT::RDF::RInterface<ROOT::Detail::RDF::RJittedFilter>;
 
 /*
  * Some Global variables.
- * The first container named cross_section, it's a std::map that contains the cross-section values at 8 TeV for each corresponding channel (in pb^-1).
+ * The first container named cross_section, it's a std::map that contains the cross-section values at 8 TeV for each corresponding channel (in pb).
  * The second is a vector of strings containing the names of variables of the final DataFrame.
  */
 std::map<std::string, float> cross_section = {
@@ -77,7 +77,7 @@ RFilter tau_selection(T &d)
 /*
  * Select a "good jet" in the sample. It's needed that the Jet pile-up identification flag "Jet_puId" is true
  * (isn't a pile-up jet) and some constraints on eta and pt.
- * Also, we declare some inline functions (lambda function) to select the correct value of variable of eventually first or second jet.
+ * Also, declare some inline functions (lambda function) to select the correct value of variable of eventually first or second jet.
  */
 template <typename T>
 RFilter take_jet(T &d)
@@ -99,7 +99,7 @@ RFilter take_jet(T &d)
     };
     
     /*
-    * Define other high level variables such us the invariant mass of jj, total trasverse momentum of jj and delta eta jj
+    * Define other high level variables such as the invariant mass of jj, total trasverse momentum of jj and delta eta jj
     * with three different lambda functions.
     */
     auto compute_mjj = [] (int nGoodJets, ROOT::Math::PtEtaPhiMVector jjp4)
