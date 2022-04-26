@@ -51,3 +51,10 @@ $ ./plotting
 you will produce the distribution plots of a lot of variables.
 
 ### <img src="https://img.icons8.com/color/32/000000/python--v2.png"/> Instructions
+
+To execute the ML programs, it is necessary to install some Python libraries, as Pandas, Uproot, Keras, etc. (if you haven't installed them yet). Otherwise you can run `requirements.txt`, downloading them all automatically.
+
+In the main directory, you find `ML_Higgs.py` file and run it with the command:
+```bash
+$ python ML_Higgs.py
+```
