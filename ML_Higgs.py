@@ -33,7 +33,7 @@ from plot_functions import plotting_ROC, plotting_loss, plotting_accuracy, \
 pd.options.mode.chained_assignment = None  # default='warn'
 
 MLfiles = ["GluGluToHToTauTau", "VBF_HToTauTau",  # signals
-           "DYJetsToLL", "TTbar", "W1JetsToLNu", "W2JetsToLNu", "W3JetsToLNu" # backgrounds
+           "DYJetsToLL", "TTbar", "W1JetsToLNu", "W2JetsToLNu", "W3JetsToLNu"  # backgrounds
            ]
 VARS = ["nGoodJets", "PV_npvs", "weight",
         "muon_pt", "muon_eta", "muon_phi", "muon_m", "muon_iso", "mt_mu",
@@ -121,7 +121,7 @@ if __name__ == "__main__":
                             "muon_pt", "muon_eta", "muon_phi", "muon_iso",
                             "tau_pt", "tau_eta", "tau_phi"],
                 'number_input': 10,
-                'N_EPOCHS': 15,
+                'N_EPOCHS': 150
             },
         'VBF':
             {
@@ -131,7 +131,7 @@ if __name__ == "__main__":
                             "tau_pt", "tau_eta", "tau_phi", "tau_iso",
                             "jbtag_1", "jj_delta"],
                 'number_input': 15,
-                'N_EPOCHS': 10
+                'N_EPOCHS': 100
             }
     }
 
@@ -206,7 +206,7 @@ if __name__ == "__main__":
     hidden = Dropout(rate=0.1)(hidden)
     output_layer = Dense(1, name='output', activation='sigmoid')(hidden)
     # Initialising ANN model
-    ANN = Model(inputs=input_layer, outputs=output_layer, name='ANN') 
+    ANN = Model(inputs=input_layer, outputs=output_layer, name='ANN')
     ANN.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'],
                 weighted_metrics=['accuracy'])  # Compiling ANN
     ANN.summary()  # Print on screen the model summary
@@ -232,7 +232,6 @@ if __name__ == "__main__":
 
     # Optimal Threshold for ROC Curve with g-mean
     index_g = g_mean_threshold(tpr_test, fpr_test, thresholds_test)
-
 
     # Plot the ANN ROC curve on the test and training datasets
     # with plotting_ROC function implemented in plot_function.py script
@@ -266,7 +265,7 @@ if __name__ == "__main__":
     plotting_output_score(f'ANN_{CHOICE}', y_train, y_prediction_train, y_test,
                           y_prediction_test, cut_dnn)
 
-    # Transform predictions into an array of 0, 1 
+    # Transform predictions into an array of 0, 1
     filter_test_sig = y_prediction_test >= cut_dnn  # classify as signal
     filter_test_bkg = y_prediction_test < cut_dnn  # classify as background
     y_prediction_test[filter_test_sig] = 1
@@ -281,7 +280,6 @@ if __name__ == "__main__":
     print(f'ANN Test Precision/Purity: {precision:.3f}')
     print(f'ANN Test Sensitivity/Recall/TPR/Signal Efficiency: {recall:.3f}')
     plotting_confusion_matrix(f'ANN_{CHOICE}', y_test[:, 0], y_prediction_test[:, 0], W_test[:, 0])
-
 
     print("************************************* RANDOM FOREST **************************************")
 
@@ -382,8 +380,9 @@ if __name__ == "__main__":
     # fig.savefig("decision_tree.pdf",  format='pdf', bbox_inches='tight')
 
     X_test = SC.inverse_transform(X_test)
+
     # Plotting of ML variables with models predictions
     for s in ML_dict[CHOICE]['ML_VARS']:
         index_var = ML_dict[CHOICE]['ML_VARS'].index(s)
-        plotting_physical_variables(CHOICE, s, X_test[:, index_var], y_test[:, 0], y_prediction_test, y_prediction_test_rf)
-
+        plotting_physical_variables(CHOICE, s, X_test[:, index_var], y_test[:, 0], y_prediction_test,
+                                    y_prediction_test_rf)
