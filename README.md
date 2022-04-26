@@ -15,7 +15,8 @@
 
 Welcome to this repository! 
 
-Here, you find all the material produced for the final project (Computing Methods for Experimental Physics and Data Analysis course at the University of Pisa). Running the Python and C++ scripts you will find in the folders, you can explore a little part, of a more complex analysis, on the search of Higgs boson decay into two tau leptons.
+Here, you find all the material produced for the final project (Computing Methods for Experimental Physics and Data Analysis course at the University of Pisa). Running the Python and C++ scripts you will find in the folders, you can explore a little part, of a more complex analysis, on the search of Higgs boson decay into two tau leptons. 
+Thanks to the CMS collaboration is possible to work on Simulated and Real data for the Higgs decay process ([CMS Open Data](http://opendata.web.cern.ch/record/12350)). In order to find Higgs bosons candidates, a selection procedure of events has implemented in the `analysis.cpp` code.  
 Other details are available in pdf format in the Materials directory. 
 
 ### Code Documentation
@@ -24,7 +25,6 @@ Click on the [link](https://domric98.github.io/Searches-for-the-Higgs-boson-in-t
 
 ### <img src="https://img.icons8.com/color/32/000000/c-plus-plus-logo.png"/> Instructions
 
-Thanks to the CMS collaboration is possible to work on Simulated and Real data for the Higgs decay process ([CMS Open Data](http://opendata.web.cern.ch/record/12350)).
 If you have the ROOT framework in your machine, you can run the C++ code, located in the ROOT_workspace foder, to perform the first selection on the data samples:
 ```bash
 $ cd ROOT_framework
