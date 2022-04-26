@@ -45,7 +45,7 @@ void plotting(T samples, std::string variable, const char *title, std::string xl
     
     std::vector<decltype(h1)> hist = {h1, h2, h3, h4, h5};
     std::vector<decltype(kRed+1)> color = {kRed+1, kMagenta-9, kGreen-3, kAzure+7, kOrange-3};
-    // Assign the colors of each histogram
+    // Assign the colours to each histogram
     for (int i=0; i<hist.size(); i++) {
         hist[i]->SetLineColor(color[i]);
         hist[i]->SetFillColor(color[i]);
