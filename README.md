@@ -58,3 +58,4 @@ In the main directory, you find `ML_Higgs.py` file and run it with the command:
 ```bash
 $ python ML_Higgs.py
 ```
+Through this step you will train two ML algorithms with supervised procedure and you will produce the predictions on a test dataset (all plots will be saved in ML_plots folder).
