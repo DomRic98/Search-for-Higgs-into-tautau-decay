@@ -15,7 +15,7 @@
 
 Welcome to this repository! 
 
-Here, you find all the material produced for the final project (Computing Methods for Experimental Physics and Data Analysis course at the University of Pisa). Running the Python and C++ scripts you will find in the folders, you can explore a little part, of a more complex analysis, on the search of Higgs boson decay into two tau leptons. 
+Here, you find all the material produced for the final project (Computing Methods for Experimental Physics and Data Analysis course at the University of Pisa). Running the Python and C++ scripts that you can find in the folders, you can explore a little part of a more complex analysis on the search of Higgs boson decay into two tau leptons. 
 
 Thanks to the CMS collaboration is possible to work on Simulated and Real data for the Higgs decay process ([CMS Open Data](http://opendata.web.cern.ch/record/12350)). In order to find Higgs bosons candidates, a selection procedure of events has implemented in the `analysis.cpp` code. Run it to produce the dataset for the Machine Learning algorithms, an Artificial Neural Network and a Random Forest, that execute a signal/background classification. 
 Other details are available in pdf format in the Materials directory. 
@@ -38,7 +38,7 @@ or you can run the selection procedure directly execute the executable file with
 $ cd ROOT_framework
 $ ./analysis
 ```
-As a precondition, it is necessary to download the Open Data from [CMS Open Data link](http://opendata.web.cern.ch/record/12350) or their reduced version from [link](https://root.cern/files/HiggsTauTauReduced/). In the Download directory, you can find some Python scripts to download automatically same reduced files via a sequential procedure and parallel ones.
+As a precondition, it is necessary to download the Open Data from [CMS Open Data link](http://opendata.web.cern.ch/record/12350) or their reduced version from this [link](https://root.cern/files/HiggsTauTauReduced/). In the Download directory, you can find some Python scripts to download automatically same reduced files via a sequential procedure and parallel ones.
 After these steps, you will produce the `_selected.root` files and executing the command
 ```bash
 $ root -l
@@ -53,10 +53,10 @@ you will produce the distribution plots of a lot of variables.
 
 ### <img src="https://img.icons8.com/color/32/000000/python--v2.png"/> Instructions
 
-To execute the ML programs, it is necessary to install some Python libraries, as Pandas, Uproot, Keras, etc. (if you haven't installed them yet). Otherwise you can run `requirements.txt`, downloading them all automatically.
+To execute the ML programs, it is necessary to install some Python libraries, as Pandas, Uproot, Keras, etc. (if you haven't installed them yet). Otherwise you can run `requirements.txt`, downloading them automatically.
 
 In the main directory, you find `ML_Higgs.py` file and run it with the command:
 ```bash
 $ python ML_Higgs.py
 ```
-Through this step you will train two ML algorithms with supervised procedure and you will produce the predictions on a test dataset (all plots will be saved in ML_plots folder).
+Through this step, you will train two ML algorithms with supervised procedure and you will produce the predictions on a test dataset (all plots will be saved in ML_plots folder).
