@@ -41,7 +41,6 @@ $ root -l
 $ .L plotting.cpp
 $ main()
 ```
-
 you will produce the distribution plots of a lot of variables.
 
 ### <img src="https://img.icons8.com/color/32/000000/python--v2.png"/> Instructions
