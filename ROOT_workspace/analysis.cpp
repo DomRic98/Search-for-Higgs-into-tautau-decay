@@ -140,7 +140,7 @@ RFilter take_jet(T &d)
                    .Define("nGoodJets", "int(goodJets_idx.size())")
                    .Define("jp4_1", "ROOT::Math::PtEtaPhiMVector(jpt_1, jeta_1, jphi_1, jm_1)")
                    .Define("jp4_2", "ROOT::Math::PtEtaPhiMVector(jpt_2, jeta_2, jphi_2, jm_2)")
-                   .Define("jjp4", "ROOT::Math::PtEtaPhiMVector(jpt_1, jeta_1, jphi_1, jm_1)")
+                   .Define("jjp4", "jp4_1+jp4_2")
                    .Define("jj_m", compute_mjj, {"nGoodJets", "jjp4"})
                    .Define("jj_pt", compute_ptjj, {"nGoodJets", "jjp4"})
                    .Define("jj_delta", compute_jdeta, {"nGoodJets", "jeta_1", "jeta_2"});
